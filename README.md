@@ -21,12 +21,12 @@ Then:
 
 ## Scripts
 
-| Script                                           | Does                                                                     |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| `dev` / `build` / `start`                        | Next.js                                                                  |
-| `lint` / `format` / `format:check` / `typecheck` | ESLint, Prettier, `tsc --noEmit`                                         |
-| `test`                                           | Vitest (unit and component)                                              |
-| `test:e2e`                                       | Playwright smoke test (run `pnpm exec playwright install chromium` once) |
+| Script                                           | Does                                                                                       |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `dev` / `build` / `start`                        | Next.js                                                                                    |
+| `lint` / `format` / `format:check` / `typecheck` | ESLint, Prettier, `next typegen && tsc --noEmit` (route types live in gitignored `.next/`) |
+| `test`                                           | Vitest (unit and component)                                                                |
+| `test:e2e`                                       | Playwright smoke test (run `pnpm exec playwright install chromium` once)                   |
 
 ## What's included
 
