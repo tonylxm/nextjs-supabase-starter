@@ -17,3 +17,12 @@ export function parseEnv(source: Record<string, string | undefined>): Env {
   }
   return result.data;
 }
+
+// Next.js inlines NEXT_PUBLIC_ vars only where they're read by their literal name, so browser code can't pass process.env whole.
+export function publicEnv(): Env {
+  return parseEnv({
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  });
+}

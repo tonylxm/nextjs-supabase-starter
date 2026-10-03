@@ -16,6 +16,7 @@ Then:
 4. `pnpm dev` and open http://localhost:3000.
 5. In the GitHub repo settings, turn on secret scanning and push protection (templates don't copy settings).
 6. Import the repo in Vercel and add the same env vars. Production deploys from `main`, and PRs get previews.
+7. In the hosted Supabase project, under Authentication → URL Configuration, set the Site URL to production and add `https://<your-domain>/auth/callback` (and your Vercel preview pattern) to the redirect URLs, so email confirmation links work.
 
 **Team mode** (branch + PR, CI blocks merge): remove the hook with `pnpm remove husky lint-staged && rm -rf .husky`, delete the `prepare` and `lint-staged` entries from `package.json`, and protect `main` so it requires the CI check.
 
@@ -30,6 +31,10 @@ Then:
 
 ## What's included
 
+- Supabase Auth (`@supabase/ssr`), deny by default: `src/proxy.ts` refreshes the session on every request and sends signed-out visitors to `/login`, except for the public paths in `src/lib/supabase/routes.ts`. Pages that show user data check again with `getClaims()` (see `/account`).
+  - `src/lib/supabase/server.ts` and `client.ts` create a client per request (server) or per browser.
+  - `/login` signs in or creates an account with email and password. `/auth/callback` finishes email confirmation. Local Supabase skips confirmation.
+  - New tables need Row Level Security and policies before the browser can read them.
 - Env validation in `src/lib/env.ts`, checked at server start by `src/instrumentation.ts`. A missing var fails with a clear message.
 - CI (`.github/workflows/ci.yml`) and Dependabot, copied from the project-starter skill.
 - A pre-commit hook that runs lint-staged (auto-fix only, no tests).
