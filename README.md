@@ -37,5 +37,5 @@ Then:
   - New tables need Row Level Security and policies before the browser can read them.
 - Env validation in `src/lib/env.ts`, checked at server start by `src/instrumentation.ts`. A missing var fails with a clear message.
 - CI (`.github/workflows/ci.yml`) and Dependabot, copied from the project-starter skill.
-- A pre-commit hook that runs lint-staged (auto-fix only, no tests).
+- A pre-commit hook that scans staged changes for secrets with gitleaks (`brew install gitleaks`), then runs lint-staged (auto-fix only, no tests).
 - `AGENTS.md` holds only the Next.js agent rules block. project-starter's agents-md step fills in the rest.
